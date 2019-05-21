@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Task Aggregator</title>
+    <!-- Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <!-- Vue.js development version, includes helpful console warnings -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- Axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+<div th:replace="fragments/top-navbar :: top-navbar"></div>
+
+<div id="vue-example" class="container">
+    <p class="h2">{{ message }}</p>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Integer</th>
+                <th>Text</th>
+                <th>Long</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="item in listOfItems">
+                <td>{{ item.integer }}</td>
+                <td>{{ item.text }}</td>
+                <td>{{ item.longNumber}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Actual Vue.js script -->
+<script>
+    var app = new Vue({
+        el: '#vue-example',
+        data() {
+            return {
+                listOfItems: null,
+                message: 'I got this data from the server with Axios in Vue.js'
+            }
+        },
+        mounted(){
+            axios
+                .get("/rest/list")
+                .then(response => (this.listOfItems = response.data))
+        },
+    })
+</script>
+
+</body>
+</html>
