@@ -9,7 +9,7 @@ Now that you are interested, this is a boilerplate for a personal project. The b
 - ... and Vue.js with Axios requesting additional data from a rest endpoint on the Spring Boot application.
 
 ## Try the latest version
-The latest stable version of this app is automatically deployed to [to be defined]().
+The latest stable version of this app is automatically deployed to [https://spring-vue-axios-boilerplate.herokuapp.com/](https://spring-vue-axios-boilerplate.herokuapp.com/).
 
 ## Running
 To run: 
