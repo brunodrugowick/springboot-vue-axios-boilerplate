@@ -21,19 +21,26 @@
 
     <div id="vue-example" class="container">
         <p class="h2">{{ message }}</p>
-        <table class="table table-striped">
+        <div class="btn-group">
+            <button v-on:click="getTodos" class="btn btn-primary">Fetch Data</button>
+        </div>
+        <p>
+        <table v-if="listOfItems != null" class="table table-striped">
             <thead class="thead-dark">
                 <tr>
-                    <th>Integer</th>
-                    <th>Text</th>
-                    <th>Long</th>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Completed</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="item in listOfItems">
-                    <td>{{ item.integer }}</td>
-                    <td>{{ item.text }}</td>
-                    <td>{{ item.longNumber}}</td>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.title }}</td>
+                    <td>
+                        <input type="checkbox" v-if="item.completed" checked disabled/>
+                        <input type="checkbox" v-else disabled>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -46,13 +53,15 @@
             data() {
                 return {
                     listOfItems: null,
-                    message: 'I got this data from the server with Axios in Vue.js'
+                    message: 'This page was rendered on the server. Now click on the button below...'
                 }
             },
-            mounted(){
-                axios
-                    .get("/rest/list")
-                    .then(response => (this.listOfItems = response.data))
+            methods: {
+                getTodos: function(event){
+                    axios
+                        .get("https://jsonplaceholder.typicode.com/todos")
+                        .then(response => (this.listOfItems = response.data))
+                }
             },
         })
     </script>    
